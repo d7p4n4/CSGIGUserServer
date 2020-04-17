@@ -24,7 +24,6 @@ namespace CSGIGUserServer
                 }
                 else
                 {
-                    response.UserGuid = "hibás";
                     response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "nem létezik" };
                 }
             }
