@@ -25,12 +25,23 @@ namespace CSGIGUserServer
                     {
                         fbToken = "123456"
                     });
-                    */
+                    
 
             CheckSerialNumberResponse checkSerialNumberResponse =
                 new UserServerObjectService().CheckSerialNumber(new CheckSerialNumberRequest()
                 {
                     SerialNumber = 5
+                });
+                */
+
+            AttachNewDeviceResponse attachNewDeviceResponse =
+                new UserServerObjectService().AttachNewDevice(new AttachNewDeviceRequest()
+                {
+                    UserToken = new UserToken()
+                    {
+                        UserGuid = "ujabbTesztGuid",
+                        fbToken = "1234567"
+                    }
                 });
         }
     }

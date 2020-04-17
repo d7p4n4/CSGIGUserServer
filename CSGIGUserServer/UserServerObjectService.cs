@@ -55,5 +55,23 @@ namespace CSGIGUserServer
             }
             return response;
         }
+
+        public AttachNewDeviceResponse AttachNewDevice(AttachNewDeviceRequest request)
+        {
+            AttachNewDeviceResponse response = new AttachNewDeviceResponse();
+
+            try
+            {
+                new EFUserTokenMethodsCAP().Insert(request.UserToken);
+
+                response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "Sikeres insert" };
+                
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+        }
     }
 }
