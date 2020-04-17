@@ -8,5 +8,6 @@ namespace CSGIGUserServer
     public class CheckSerialNumberRequest : Ac4yServiceRequest
     {
         public int SerialNumber { get; set; }
+        public string fbToken { get; set; }
     }
 }

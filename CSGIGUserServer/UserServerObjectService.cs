@@ -42,7 +42,18 @@ namespace CSGIGUserServer
             {
                 if (new EFUserMethodsCAP().IsExistById(request.SerialNumber))
                 {
+                    User user = new EFUserMethodsCAP().GetById(request.SerialNumber);
+                    List<UserToken> tokenList = new EFUserTokenMethodsCAP().GetListByGuid(user.Guid);
+
                     response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "létezik" };
+
+                    foreach (var token in tokenList)
+                    {
+                        if (request.fbToken.Equals(token.fbToken))
+                        {
+                            response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "a token már a userhez van rendelve" };
+                        }
+                    }
                 }
                 else
                 {

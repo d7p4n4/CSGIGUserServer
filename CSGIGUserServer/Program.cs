@@ -17,23 +17,24 @@ namespace CSGIGUserServer
             new EFUserTokenMethodsCAP().Insert(new UserToken()
             {
                 UserGuid = "tesztguid",
-                fbToken = "123456"
+                fbToken = "123456789"
             });
-
+            /*
             GetUserGuidByFBTokenResponse getUserGuidByFBTokenResponse =
                     new UserServerObjectService().GetUserGuidByToken(new GetUserGuidByFBTokenRequest()
                     {
                         fbToken = "123456"
                     });
                     
-
+            */
             CheckSerialNumberResponse checkSerialNumberResponse =
                 new UserServerObjectService().CheckSerialNumber(new CheckSerialNumberRequest()
                 {
-                    SerialNumber = 5
+                    SerialNumber = 1,
+                    fbToken = "12345677"
                 });
-                */
-
+                
+            /*
             AttachNewDeviceResponse attachNewDeviceResponse =
                 new UserServerObjectService().AttachNewDevice(new AttachNewDeviceRequest()
                 {
@@ -42,7 +43,7 @@ namespace CSGIGUserServer
                         UserGuid = "ujabbTesztGuid",
                         fbToken = "1234567"
                     }
-                });
+                });*/
         }
     }
 }

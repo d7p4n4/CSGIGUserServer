@@ -45,6 +45,13 @@ namespace CSGIGUserServer
 
         }
 
+        public List<UserToken> GetListByGuid(string guid)
+        {
+            return new Context().Tokenek
+                .Where(t => t.UserGuid == guid)
+                .ToList();
+        }
+
         public UserToken GetByFBToken(string fbToken)
         {
 
