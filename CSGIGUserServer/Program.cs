@@ -23,7 +23,7 @@ namespace CSGIGUserServer
             GetUserGuidByFBTokenResponse getUserGuidByFBTokenResponse =
                     new UserServerObjectService().GetUserGuidByToken(new GetUserGuidByFBTokenRequest()
                     {
-                        fbToken = "12345"
+                        fbToken = "123456"
                     });
 
             Console.WriteLine(getUserGuidByFBTokenResponse);
