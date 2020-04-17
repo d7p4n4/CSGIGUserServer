@@ -18,15 +18,20 @@ namespace CSGIGUserServer
             {
                 UserGuid = "tesztguid",
                 fbToken = "123456"
-            });*/
+            });
 
             GetUserGuidByFBTokenResponse getUserGuidByFBTokenResponse =
                     new UserServerObjectService().GetUserGuidByToken(new GetUserGuidByFBTokenRequest()
                     {
                         fbToken = "123456"
                     });
+                    */
 
-            Console.WriteLine(getUserGuidByFBTokenResponse);
+            CheckSerialNumberResponse checkSerialNumberResponse =
+                new UserServerObjectService().CheckSerialNumber(new CheckSerialNumberRequest()
+                {
+                    SerialNumber = 5
+                });
         }
     }
 }

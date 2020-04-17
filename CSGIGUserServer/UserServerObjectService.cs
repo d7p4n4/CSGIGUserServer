@@ -33,5 +33,27 @@ namespace CSGIGUserServer
             }
             return response;
         }
+
+        public CheckSerialNumberResponse CheckSerialNumber(CheckSerialNumberRequest request)
+        {
+            CheckSerialNumberResponse response = new CheckSerialNumberResponse();
+
+            try
+            {
+                if (new EFUserMethodsCAP().IsExistById(request.SerialNumber))
+                {
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "létezik" };
+                }
+                else
+                {
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "nem létezik" };
+                }
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+        }
     }
 }
