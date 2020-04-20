@@ -84,5 +84,50 @@ namespace CSGIGUserServer
             }
             return response;
         }
+
+        public AuthenticationRequestResponse AuthenticationRequestInsert(AuthenticationRequestRequest request)
+        {
+            AuthenticationRequestResponse response = new AuthenticationRequestResponse();
+
+            try
+            {
+                new EFAuthenticationRequestMethodsCAP().Insert(request.AuthenticationRequest);
+
+                response.AuthenticationRequest = request.AuthenticationRequest;
+                response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "Sikeres insert" };
+
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+
+        }
+
+        public AuthenticationRequestGetByGuidResponse GetUserGuidByToken(AuthenticationRequestGetByGuidRequest request)
+        {
+            AuthenticationRequestGetByGuidResponse response = new AuthenticationRequestGetByGuidResponse();
+
+            try
+            {
+                if (new EFAuthenticationRequestMethodsCAP().IsExistByGuid(request.Guid))
+                {
+                    AuthenticationRequest authenticationRequest = new EFAuthenticationRequestMethodsCAP().GetByGuid(request.Guid);
+
+                    response.AuthenticationRequest = authenticationRequest;
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "létezik" };
+                }
+                else
+                {
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "nem létezik" };
+                }
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+        }
     }
 }

@@ -23,5 +23,6 @@ namespace CSGIGUserServer
 
         public DbSet<User> Userek { get; set; }
         public DbSet<UserToken> Tokenek { get; set; }
+        public DbSet<AuthenticationRequest> Requestek { get; set; }
     }
 }
