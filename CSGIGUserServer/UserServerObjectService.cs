@@ -105,7 +105,7 @@ namespace CSGIGUserServer
 
         }
 
-        public AuthenticationRequestGetByGuidResponse GetUserGuidByToken(AuthenticationRequestGetByGuidRequest request)
+        public AuthenticationRequestGetByGuidResponse AuthenticationRequestGetByGuid(AuthenticationRequestGetByGuidRequest request)
         {
             AuthenticationRequestGetByGuidResponse response = new AuthenticationRequestGetByGuidResponse();
 
