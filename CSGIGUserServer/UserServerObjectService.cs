@@ -9,6 +9,28 @@ namespace CSGIGUserServer
     public class UserServerObjectService
     {
 
+        public IsUnknownOrInvalidTokenResponse IsUnknownOrInvalidToken(IsUnknownOrInvalidTokenRequest request)
+        {
+            IsUnknownOrInvalidTokenResponse response = new IsUnknownOrInvalidTokenResponse();
+
+            try
+            {
+                if (new EFUserTokenMethodsCAP().IsExistByFBToken(request.fbToken))
+                {
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "létezik a token a db-ben" };
+                }
+                else
+                {
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "unknown or invalid token" };
+                }
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+        }
+
         public GetUserGuidByFBTokenResponse GetUserGuidByToken(GetUserGuidByFBTokenRequest request)
         {
             GetUserGuidByFBTokenResponse response = new GetUserGuidByFBTokenResponse();

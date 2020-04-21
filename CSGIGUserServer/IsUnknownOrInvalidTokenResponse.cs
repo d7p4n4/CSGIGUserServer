@@ -8,5 +8,6 @@ namespace CSGIGUserServer
 {
     public class IsUnknownOrInvalidTokenResponse : Ac4yServiceResponse
     {
+
     }
 }
