@@ -107,9 +107,9 @@ namespace CSGIGUserServer
             return response;
         }
 
-        public AuthenticationRequestResponse AuthenticationRequestInsert(AuthenticationRequestRequest request)
+        public AuthenticationRequestInsertResponse AuthenticationRequestInsert(AuthenticationRequestInsertRequest request)
         {
-            AuthenticationRequestResponse response = new AuthenticationRequestResponse();
+            AuthenticationRequestInsertResponse response = new AuthenticationRequestInsertResponse();
 
             try
             {
@@ -150,6 +150,84 @@ namespace CSGIGUserServer
                 response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
             }
             return response;
+        }
+
+        public InsertNewUserResponse InsertNewUser(InsertNewUserRequest request)
+        {
+            InsertNewUserResponse response = new InsertNewUserResponse();
+
+            try
+            {
+                new EFUserMethodsCAP().Insert(request.User);
+                
+                response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "Sikeres user insert" };
+                
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+
+        }
+
+        public GetUserByTokenResponse GetUserByToken(GetUserByTokenRequest request)
+        {
+            GetUserByTokenResponse response = new GetUserByTokenResponse();
+
+            try
+            {
+                UserToken userToken = new EFUserTokenMethodsCAP().GetByFBToken(request.fbToken);
+
+                response.User = new EFUserMethodsCAP().GetByGuid(userToken.UserGuid);
+                response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "Megvan a tokenhez tartozó user" };
+
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+
+        }
+
+        public InsertNewTokenResponse InsertNewToken(InsertNewTokenRequest request)
+        {
+            InsertNewTokenResponse response = new InsertNewTokenResponse();
+
+            try
+            {
+                new EFUserTokenMethodsCAP().Insert(request.UserToken);
+                
+                response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "Sikeres Token insert" };
+
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+
+        }
+
+        public IsExistTokenByTokenResponse IsExistTokenByToken(IsExistTokenByTokenRequest request)
+        {
+            IsExistTokenByTokenResponse response = new IsExistTokenByTokenResponse();
+
+            try
+            {
+                if(new EFUserTokenMethodsCAP().IsExistByFBToken(request.fbToken))
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "Már létezik a token" };
+                else
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "Még nem létezik a token" };
+
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+
         }
     }
 }

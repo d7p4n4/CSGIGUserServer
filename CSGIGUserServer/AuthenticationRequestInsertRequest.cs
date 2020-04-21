@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSGIGUserServer
 {
-    public class AuthenticationRequestRequest : Ac4yServiceRequest
+    public class AuthenticationRequestInsertRequest : Ac4yServiceRequest
     {
         public AuthenticationRequest AuthenticationRequest { get; set; }
     }
