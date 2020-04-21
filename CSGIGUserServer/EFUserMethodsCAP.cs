@@ -56,22 +56,6 @@ namespace CSGIGUserServer
 
       }
        
-        public User GetByFBToken(string fbToken)
-        {
-
-          return new Context().Userek
-                    .Where(entity => entity.FBToken == fbToken)
-                    .FirstOrDefault<User>();
-
-      } // GetByGuid
-
-      public bool IsExistByFBToken(string fbToken)
-        {
-
-          return GetByFBToken(fbToken) != null;
-
-      }
-
         public void UpdateById(int id, User user)
         {
 
