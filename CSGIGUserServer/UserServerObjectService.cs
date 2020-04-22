@@ -67,19 +67,21 @@ namespace CSGIGUserServer
                     User user = new EFUserMethodsCAP().GetById(request.SerialNumber);
                     List<UserToken> tokenList = new EFUserTokenMethodsCAP().GetListByGuid(user.Guid);
 
-                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "létezik" };
+                    response.UserGuid = user.Guid;
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "létezik az adott serial number" };
 
                     foreach (var token in tokenList)
                     {
                         if (request.fbToken.Equals(token.fbToken))
                         {
+                            response.UserGuid = null;
                             response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "a token már a userhez van rendelve" };
                         }
                     }
                 }
                 else
                 {
-                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "nem létezik" };
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "nem létezik az adott serial number" };
                 }
             }
             catch (Exception exception)

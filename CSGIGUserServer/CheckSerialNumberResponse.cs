@@ -7,5 +7,6 @@ namespace CSGIGUserServer
 {
     public class CheckSerialNumberResponse : Ac4yServiceResponse
     {
+        public string UserGuid { get; set; }
     }
 }
