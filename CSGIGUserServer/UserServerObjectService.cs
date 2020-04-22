@@ -229,5 +229,26 @@ namespace CSGIGUserServer
             return response;
 
         }
+
+        public isExistByGuidResponse IsExistByGuid(isExistByGuidRequest request)
+        {
+            isExistByGuidResponse response = new isExistByGuidResponse();
+
+            try
+            {
+                if (new EFAuthenticationRequestMethodsCAP().IsExistByGuid(request.Guid))
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "Már létezik ezzel a guid-al rekord" };
+                else
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "Még nem létezik ezzel a guid-al rekord" };
+
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+
+        }
     }
+    
 }
