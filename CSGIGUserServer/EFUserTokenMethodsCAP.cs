@@ -75,6 +75,7 @@ namespace CSGIGUserServer
             {
 
                 UserToken actual = context.Tokenek.Find(id);
+                actual.UserGuid = user.UserGuid;
                 context.SaveChanges();
 
             }
