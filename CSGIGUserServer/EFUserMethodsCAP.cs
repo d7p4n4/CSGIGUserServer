@@ -86,5 +86,12 @@ namespace CSGIGUserServer
 
     }
 
+        public void DeleteUser(User user)
+        {
+            var context = new Context();
+
+            context.Userek.Remove(user);
+        }
+
     }
 }

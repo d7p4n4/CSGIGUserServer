@@ -16,5 +16,7 @@ namespace CSGIGUserServer
         public string Password { get; set; }
         public string OAuthToken { get; set; }
         public string Language { get; set; }
+        public string PhoneNumber { get; set; }
+        public string UserName { get; set; }
     }
 }

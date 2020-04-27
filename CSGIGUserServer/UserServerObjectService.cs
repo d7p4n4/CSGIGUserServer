@@ -251,6 +251,40 @@ namespace CSGIGUserServer
             return response;
 
         }
+
+        public DeleteUserResponse DeleteUser(DeleteUserRequest request)
+        {
+            DeleteUserResponse response = new DeleteUserResponse();
+
+            try
+            {
+                UserToken userToken = new EFUserTokenMethodsCAP().GetByFBToken(request.fbToken);
+
+                if (userToken != null)
+                {
+                    User user = new EFUserMethodsCAP().GetByGuid(userToken.UserGuid);
+
+                    if(user != null)
+                    {
+                        new EFUserMethodsCAP().DeleteUser(user);
+
+                        response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "user törölve" };
+                    }
+                    else
+                        response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "a usert nem sikerült kiolvasni" };
+                }
+                else
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "ezzel a tokennel nincs user-token pár" };
+
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+
+
+        }
     }
     
 }
