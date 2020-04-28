@@ -5,8 +5,7 @@ using System.Text;
 
 namespace CSGIGUserServer
 {
-    public class DeleteUserResponse : Ac4yServiceResponse
+    public class DeleteAuthenticationRequestResponse : Ac4yServiceResponse
     {
-        public string UserGuid { get; set; }
     }
 }

@@ -95,8 +95,22 @@ namespace CSGIGUserServer
                 context.SaveChanges();
 
             }
-
-
         }
+
+            public void UpdateByFbToken(UserToken user)
+            {
+
+                using (var context = new Context())
+                {
+
+                    UserToken actual = context.Tokenek.Where(entity => entity.fbToken == user.fbToken).FirstOrDefault<UserToken>();
+                    int id = actual.id;
+                    actual.id = id;
+                    actual.UserGuid = user.UserGuid;
+                    actual.fbToken = user.fbToken;
+                    context.SaveChanges();
+
+                }
+            }
     }
 }

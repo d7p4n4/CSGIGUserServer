@@ -91,6 +91,7 @@ namespace CSGIGUserServer
             var context = new Context();
 
             context.Userek.Remove(user);
+            context.SaveChanges();
         }
 
     }

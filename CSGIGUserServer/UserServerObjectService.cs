@@ -97,10 +97,24 @@ namespace CSGIGUserServer
 
             try
             {
-                new EFUserTokenMethodsCAP().Insert(request.UserToken);
+                IsExistTokenByTokenResponse isExistTokenByTokenResponse =
+                    new UserServerObjectService().IsExistTokenByToken(new IsExistTokenByTokenRequest()
+                    {
+                        fbToken = request.UserToken.fbToken
+                    });
 
-                response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "Sikeres insert" };
-                
+                if (isExistTokenByTokenResponse.Result.Success())
+                {
+
+                    new EFUserTokenMethodsCAP().UpdateByFbToken(request.UserToken);
+
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "Sikeres update" };
+                }
+                else
+                {
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "nem létezik a token a db-ben" };
+                }
+
             }
             catch (Exception exception)
             {
@@ -263,6 +277,7 @@ namespace CSGIGUserServer
                 if (userToken != null)
                 {
                     User user = new EFUserMethodsCAP().GetByGuid(userToken.UserGuid);
+                    response.UserGuid = user.Guid;
 
                     if(user != null)
                     {
@@ -285,6 +300,61 @@ namespace CSGIGUserServer
 
 
         }
+
+        public DeleteAuthenticationRequestResponse DeleteAuthenticationRequest(DeleteAuthenticationRequestRequest request)
+        {
+            DeleteAuthenticationRequestResponse response = new DeleteAuthenticationRequestResponse();
+
+            try
+            {
+                AuthenticationRequest authenticationRequest = new EFAuthenticationRequestMethodsCAP().GetByGuid(request.UserGuid);
+
+                if (authenticationRequest != null)
+                {
+                    new EFAuthenticationRequestMethodsCAP().DeleteAuthenticationRequest(authenticationRequest);
+
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "authentication request törölve" };
+                }
+                else
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "nem létezik az adott guid-hoz authentication request" };
+                
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+
+
+        }
+
+        public AuthenticationRequestUpdateResponse UpdateAuthenticationRequest(AuthenticationRequestUpdateRequest request)
+        {
+            AuthenticationRequestUpdateResponse response = new AuthenticationRequestUpdateResponse();
+
+            try
+            {
+                AuthenticationRequest authenticationRequest = new EFAuthenticationRequestMethodsCAP().UpdateByGuid(request.UserGuid, request.CheckData);
+
+                if (authenticationRequest != null)
+                {
+                    response.AuthenticationRequest = authenticationRequest;
+
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "authentication request törölve" };
+                }
+                else
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.INEFFECTIVE, Message = "nem létezik az adott guid-hoz authentication request" };
+
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+
+
+        }
+
     }
     
 }

@@ -77,7 +77,7 @@ namespace CSGIGUserServer
 
         } // UpdateById
 
-        public void UpdateByGuid(string guid, AuthenticationRequest user)
+        public AuthenticationRequest UpdateByGuid(string guid, string checkData)
         {
 
             using (var context = new Context())
@@ -87,11 +87,22 @@ namespace CSGIGUserServer
                 int id = actual.Id;
                 actual.Id = id;
                 actual.Guid = guid;
+                actual.CheckData = checkData;
                 context.SaveChanges();
+
+                return actual;
 
             }
 
 
+        }
+
+        public void DeleteAuthenticationRequest(AuthenticationRequest authenticationRequest)
+        {
+            var context = new Context();
+
+            context.Requestek.Remove(authenticationRequest);
+            context.SaveChanges();
         }
     }
 }
