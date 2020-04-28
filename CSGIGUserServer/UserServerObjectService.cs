@@ -1,4 +1,5 @@
 ﻿using Modul.Final.Class;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -195,7 +196,9 @@ namespace CSGIGUserServer
             {
                 UserToken userToken = new EFUserTokenMethodsCAP().GetByFBToken(request.fbToken);
 
-                response.User = new EFUserMethodsCAP().GetByGuid(userToken.UserGuid);
+                User user = new EFUserMethodsCAP().GetByGuid(userToken.UserGuid);
+                response.User = user;
+                response.Json = JsonConvert.SerializeObject(user);
                 response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "Megvan a tokenhez tartozó user" };
 
             }

@@ -8,5 +8,6 @@ namespace CSGIGUserServer
     public class GetUserByTokenResponse : Ac4yServiceResponse
     {
         public User User { get; set; }
+        public string Json { get; set; }
     }
 }
