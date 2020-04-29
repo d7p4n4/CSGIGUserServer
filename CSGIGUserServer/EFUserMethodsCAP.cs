@@ -79,6 +79,12 @@ namespace CSGIGUserServer
                 int id = actual.Id;
                 actual.Id = id;
                 actual.Guid = guid;
+                actual.UserName = user.UserName;
+                actual.Name = user.Name;
+                actual.Email = user.Email;
+                actual.PhoneNumber = user.PhoneNumber;
+                actual.Password = user.Password;
+                actual.UpdatedAt = DateTime.Now;
                 context.SaveChanges();
 
           }

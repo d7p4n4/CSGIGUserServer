@@ -358,6 +358,26 @@ namespace CSGIGUserServer
 
         }
 
+        public UpdateUserByGuidResponse UpdateUserByGuid(UpdateUserByGuidRequest request)
+        {
+            UpdateUserByGuidResponse response = new UpdateUserByGuidResponse();
+
+            try
+            {
+                    new EFUserMethodsCAP().UpdateByGuid(request.UserGuid, request.User);
+
+                    response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "user adatai frissítve" };
+               
+            }
+            catch (Exception exception)
+           {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+
+
+        }
+
     }
     
 }
