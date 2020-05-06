@@ -91,6 +91,9 @@ namespace CSGIGUserServer
                         Name = "Update"
                     }
                 });*/
+
+            GetListOfUsersResponse response =
+                new UserServerObjectService().GetListOfUsers(new GetListOfUsersRequest() { });
         }
     }
 }

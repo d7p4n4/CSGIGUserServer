@@ -378,6 +378,26 @@ namespace CSGIGUserServer
 
         }
 
+        public GetListOfUsersResponse GetListOfUsers(GetListOfUsersRequest request)
+        {
+            GetListOfUsersResponse response = new GetListOfUsersResponse();
+
+            try
+            {
+                response.Users = new EFUserMethodsCAP().GetListOfUsers();
+                response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "user lista kiolvasva" };
+
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+
+
+        }
+
+
     }
     
 }

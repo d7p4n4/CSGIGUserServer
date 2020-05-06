@@ -92,6 +92,14 @@ namespace CSGIGUserServer
 
     }
 
+        public List<User> GetListOfUsers()
+        {
+            using(var context = new Context())
+            {
+                return context.Userek.ToList();
+            }
+        }
+
         public void DeleteUser(User user)
         {
             var context = new Context();
