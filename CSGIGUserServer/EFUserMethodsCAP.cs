@@ -9,6 +9,11 @@ namespace CSGIGUserServer
 {
     public class EFUserMethodsCAP
     {
+        public IEnumerable<User> GetUserList()
+        {
+            return new Context().Userek;
+        }
+
         public User Insert(User user)
         {
             if (user.CreatedAt == DateTime.MinValue)
@@ -63,6 +68,14 @@ namespace CSGIGUserServer
             {
 
                 User actual = context.Userek.Find(id);
+                actual.Id = id;
+                actual.Guid = user.Guid;
+                actual.UserName = user.UserName;
+                actual.Name = user.Name;
+                actual.Email = user.Email;
+                actual.PhoneNumber = user.PhoneNumber;
+                actual.Password = user.Password;
+                actual.UpdatedAt = DateTime.Now;
                 context.SaveChanges();
 
             }
@@ -108,5 +121,14 @@ namespace CSGIGUserServer
             context.SaveChanges();
         }
 
+        public void DeleteUserById(int id)
+        {
+            var context = new Context();
+
+            User user = context.Userek.Find(id);
+            context.Userek.Remove(user);
+            context.SaveChanges();
+
+        }
     }
 }

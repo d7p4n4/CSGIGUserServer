@@ -397,7 +397,24 @@ namespace CSGIGUserServer
 
         }
 
+        public DeleteUserByIdResponse DeleteUserById(DeleteUserByIdRequest request)
+        {
+            DeleteUserByIdResponse response = new DeleteUserByIdResponse();
+
+            try
+            {
+                new EFUserMethodsCAP().DeleteUserById(request.Id);
+                response.Result = new Ac4yProcessResult() { Code = Ac4yProcessResult.SUCCESS, Message = "user törölve" };
+
+            }
+            catch (Exception exception)
+            {
+                response.Result = (new Ac4yProcessResult() { Code = Ac4yProcessResult.FAIL, Message = exception.Message, Description = exception.StackTrace });
+            }
+            return response;
+        }
+
+
+        }
 
     }
-    
-}
