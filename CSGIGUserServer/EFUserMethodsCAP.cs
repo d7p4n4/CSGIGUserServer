@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ac4yUtilityContainer;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,14 +69,8 @@ namespace CSGIGUserServer
             {
 
                 User actual = context.Userek.Find(id);
-                actual.Id = id;
-                actual.Guid = user.Guid;
-                actual.UserName = user.UserName;
-                actual.Name = user.Name;
-                actual.Email = user.Email;
-                actual.PhoneNumber = user.PhoneNumber;
-                actual.Password = user.Password;
-                actual.UpdatedAt = DateTime.Now;
+                user.UpdatedAt = DateTime.Now;
+                new Ac4yUtility().Object2Object(user, actual);
                 context.SaveChanges();
 
             }
@@ -86,18 +81,13 @@ namespace CSGIGUserServer
         {
 
           using (var context = new Context())
-            {
+          {
 
-             User actual = context.Userek.Where(entity => entity.Guid == guid).FirstOrDefault<User>();
+               User actual = context.Userek.Where(entity => entity.Guid == guid).FirstOrDefault<User>();
                 int id = actual.Id;
+                user.UpdatedAt = DateTime.Now;
+                new Ac4yUtility().Object2Object(user, actual);
                 actual.Id = id;
-                actual.Guid = guid;
-                actual.UserName = user.UserName;
-                actual.Name = user.Name;
-                actual.Email = user.Email;
-                actual.PhoneNumber = user.PhoneNumber;
-                actual.Password = user.Password;
-                actual.UpdatedAt = DateTime.Now;
                 context.SaveChanges();
 
           }

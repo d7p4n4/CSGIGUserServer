@@ -23,6 +23,9 @@
     <Reference Include="CSAc4yServiceFW">
       <HintPath>C:\library\LPCsharp\CSAc4yServiceFW.dll</HintPath>
     </Reference>
+    <Reference Include="CSAc4yUtilityFW">
+      <HintPath>C:\library\LPCsharp\CSAc4yUtilityFW.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

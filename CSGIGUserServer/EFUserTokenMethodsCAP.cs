@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ac4yUtilityContainer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -91,7 +92,6 @@ namespace CSGIGUserServer
                 UserToken actual = context.Tokenek.Where(entity => entity.UserGuid == guid).FirstOrDefault<UserToken>();
                 int id = actual.id;
                 actual.id = id;
-                actual.UserGuid = guid;
                 context.SaveChanges();
 
             }
@@ -104,10 +104,9 @@ namespace CSGIGUserServer
                 {
 
                     UserToken actual = context.Tokenek.Where(entity => entity.fbToken == user.fbToken).FirstOrDefault<UserToken>();
-                    int id = actual.id;
-                    actual.id = id;
-                    actual.UserGuid = user.UserGuid;
-                    actual.fbToken = user.fbToken;
+
+                    new Ac4yUtility().Object2Object(user, actual);
+                actual.fbToken = user.fbToken;
                     context.SaveChanges();
 
                 }
