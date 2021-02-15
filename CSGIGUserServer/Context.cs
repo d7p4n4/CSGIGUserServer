@@ -18,7 +18,7 @@ namespace CSGIGUserServer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=89.46.75.137;Database=UserTeszt;Trusted_Connection=False;uid=SA;pwd=Sycompla9999*;");
+            optionsBuilder.UseSqlServer(@"Server=217.144.51.217;Database=UserTeszt;Trusted_Connection=False;uid=SA;pwd=Sycompla9999*;");
 }
 
         public DbSet<User> Userek { get; set; }
