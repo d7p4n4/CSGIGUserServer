@@ -1,4 +1,4 @@
-﻿using Ac4yUtilityContainer;
+﻿
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -70,7 +70,7 @@ namespace CSGIGUserServer
 
                 User actual = context.Userek.Find(id);
                 user.UpdatedAt = DateTime.Now;
-                new Ac4yUtility().Object2Object(user, actual);
+                Object2Object(user, actual);
                 context.SaveChanges();
 
             }
@@ -86,7 +86,7 @@ namespace CSGIGUserServer
                User actual = context.Userek.Where(entity => entity.Guid == guid).FirstOrDefault<User>();
                 int id = actual.Id;
                 user.UpdatedAt = DateTime.Now;
-                new Ac4yUtility().Object2Object(user, actual);
+                Object2Object(user, actual);
                 actual.Id = id;
                 context.SaveChanges();
 
