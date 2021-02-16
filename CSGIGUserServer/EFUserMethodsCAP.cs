@@ -120,5 +120,22 @@ namespace CSGIGUserServer
             context.SaveChanges();
 
         }
+
+
+        public void Object2Object(object source, object target)
+        {
+
+            var properties = source.GetType().GetProperties();
+
+            foreach (var item in properties)
+            {
+                if (item.GetValue(source, null) != null)
+                {
+                    target.GetType().GetProperty(item.Name).SetValue(target, item.GetValue(source, null), null);
+                }
+            }
+
+        } // Object2Object
+
     }
 }
