@@ -4,11 +4,22 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace CSGIGUserServer
 {
     public class Context : DbContext
     {
+
+        public string ConnectionStringBuilder(string ip, string databaseName, string username, string password)
+        {
+
+            return "Server=" + ip + ";Database=" + databaseName +
+                ";Trusted_Connection=false;uid=" + username +
+                ";pwd=" + password + ";";
+
+        } // ConnectionStringBuilder
+
         public Context() : base()
         {
             //Database.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
@@ -18,11 +29,27 @@ namespace CSGIGUserServer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=217.144.51.217;Database=UserTeszt;Trusted_Connection=False;uid=SA;pwd=Sycompla9999*;");
-}
+            IConfiguration config = null;
+
+            config = new ConfigurationBuilder()
+                        .AddJsonFile("appsettings.json", true, true)
+                        .Build();
+
+            optionsBuilder.UseSqlServer(ConnectionStringBuilder(
+                                                    config["DATABASESERVER"]
+                                                    ,
+                                                    config["DATABASENAME"]
+                                                    ,
+                                                    config["DATABASEUSERNAME"]
+                                                    ,
+                                                    config["DATABASEPASSWORD"]));
+
+        }
 
         public DbSet<User> Userek { get; set; }
         public DbSet<UserToken> Tokenek { get; set; }
         public DbSet<AuthenticationRequest> Requestek { get; set; }
     }
-}
+
+} // Context
+

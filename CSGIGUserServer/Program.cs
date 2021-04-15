@@ -7,12 +7,13 @@ namespace CSGIGUserServer
     class Program
     {
         public static void Main(String[] args)
-        {/*
+        {
             new EFUserMethodsCAP().Insert(new User()
             {
                 Guid = "tesztguid",
-                FBToken = "123456"
+                UserName = "teszt"
             });
+            /*
 
             new EFUserTokenMethodsCAP().Insert(new UserToken()
             {
